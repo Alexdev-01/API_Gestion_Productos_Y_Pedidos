@@ -1,6 +1,5 @@
 ```text
-
-## 📦 Estructura del Proyecto
+📦 Estructura del Proyecto
 │
 ├── 📁 controller  → Controladores REST
 │   ├── AuthController
