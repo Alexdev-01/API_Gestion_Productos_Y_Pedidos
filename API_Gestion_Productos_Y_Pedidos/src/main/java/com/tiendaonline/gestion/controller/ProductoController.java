@@ -16,7 +16,7 @@ import com.tiendaonline.gestion.model.Producto;
 import com.tiendaonline.gestion.service.ProductoService;
 
 @RestController  // Anotación para indicar que esta clase es un controlador REST
-@RequestMapping("{/productos}")  // Ruta base para las operaciones relacionadas con productos
+@RequestMapping("/productos")  // Ruta base para las operaciones relacionadas con productos
 public class ProductoController {
 	
 	public final ProductoService productoService;
