@@ -12,17 +12,29 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity	// Anotación para indicar que esta clase es una entidad de JPA
 @Table(name = "pedidos")	// Anotación para especificar el nombre de la tabla en la BBDD
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Pedido {
 	
 	@Id 		// Anotación para indicar que este campo es la clave primaria de la entidad
 	@GeneratedValue(strategy = GenerationType.IDENTITY)	// Anotación para indicar que el valor de este campo se generará automáticamente por la BBDD
 	private Long id;
+	
+	@ManyToOne
+	@JoinColumn(name = "usuario_id")
+	private Usuario usuario;
 	
 	private LocalDateTime fecha;
 	private BigDecimal total;
