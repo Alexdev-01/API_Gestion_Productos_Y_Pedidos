@@ -2,7 +2,6 @@ package com.tiendaonline.gestion.model;
 
 import java.math.BigDecimal;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,11 +10,15 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity	// Anotación para indicar que esta clase es una entidad de JPA
-@Table(name = "detallePedido")
-@Setter
+@Table(name = "detalle_pedido")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class DetallePedido {
 
 	@Id 		// Anotación para indicar que este campo es la clave primaria de la entidad
@@ -35,12 +38,8 @@ public class DetallePedido {
 	private BigDecimal subtotal;
 	
 	@PrePersist	// Anotación para indicar que este método se ejecutará antes de que la entidad se persista en la BBDD
-	public void prePertist() {
+	public void prePersist() {
 		this.subtotal = precioUnitario.multiply(BigDecimal.valueOf(cantidad));
 	}
 
-
-
-
-	
 }
