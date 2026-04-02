@@ -4,16 +4,15 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import com.tiendaonline.gestion.dto.auth.AuthResponse
 
+import com.tiendaonline.gestion.dto.auth.AuthResponse;
+import com.tiendaonline.gestion.dto.auth.LoginRequest;
+import com.tiendaonline.gestion.dto.auth.RegisterRequest;
 import com.tiendaonline.gestion.model.Rol;
 import com.tiendaonline.gestion.model.Usuario;
 import com.tiendaonline.gestion.repository.UsuarioRepository;
 import com.tiendaonline.gestion.security.jwt.JwtService;
-import com.tiendaonline.gestion.service.AuthResponse;
 import com.tiendaonline.gestion.service.AuthService;
-import com.tiendaonline.gestion.service.LoginRequest;
-import com.tiendaonline.gestion.service.RegisterRequest;
 
 @Service	// Marca esta clase como un servicio de Spring, lo que permite su gestión y uso en otras partes de la aplicación
 public class AuthServiceImpl implements AuthService {
@@ -41,7 +40,8 @@ public class AuthServiceImpl implements AuthService {
 		Usuario usuario = new Usuario();
 		
 		usuario.setUsername(request.getUsername());
-		usuario.setEmail(passwordEncoder.encode(request.getPassword()));
+		usuario.setEmail(request.getEmail());
+		usuario.setPassword(passwordEncoder.encode(request.getPassword()));
 		usuario.setRole(Rol.CLIENTE);
 		
 		usuarioRepository.save(usuario);
@@ -49,16 +49,16 @@ public class AuthServiceImpl implements AuthService {
 		String token = jwtService.generateToken(org.springframework.security.core.userdetails.User
 				.builder()
 				.username(usuario.getUsername())
-				.password(usuario.getPassord())
+				.password(usuario.getPassword())
 				.roles(usuario.getRole().name())
-				.buils()
+				.build()
 		);
 		
 		return new AuthResponse(token);
 	}
 
 	@Override
-	public com.tiendaonline.gestion.dto.auth.AuthResponse login(com.tiendaonline.gestion.dto.auth.LoginRequest request) {
+	public AuthResponse login(LoginRequest request) {
 		
 		authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
 		
@@ -75,7 +75,5 @@ public class AuthServiceImpl implements AuthService {
 		return new AuthResponse(token);
 		
 	}
-
-
 
 }
