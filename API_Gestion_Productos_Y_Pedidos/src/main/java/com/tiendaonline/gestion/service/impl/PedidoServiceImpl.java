@@ -1,10 +1,8 @@
 package com.tiendaonline.gestion.service.impl;
 
 import java.math.BigDecimal;
-import java.util.Iterator;
 import java.util.List;
 
-import org.hibernate.cache.spi.support.AbstractReadWriteAccess.Item;
 import org.springframework.stereotype.Service;
 
 import com.tiendaonline.gestion.dto.pedido.CrearPedidoRequest;
@@ -71,13 +69,13 @@ public class PedidoServiceImpl implements PedidoService {
 			}
 			
 			//Reducir Stock del producto
-			producto.setStock(producto.getStock() - Item.getCantidad());
+			producto.setStock(producto.getStock() - item.getCantidad());
 			
 			DetallePedido detalle = new DetallePedido();
 			
 			detalle.setProducto(producto);
 			detalle.setCantidad(item.getCantidad());
-			detalle.setPrecio(producto.getPrecio());
+			detalle.setPrecioUnitario(producto.getPrecio());
 			
 			detalle.setSubtotal(producto.getPrecio().multiply(BigDecimal.valueOf(item.getCantidad())));
 			
