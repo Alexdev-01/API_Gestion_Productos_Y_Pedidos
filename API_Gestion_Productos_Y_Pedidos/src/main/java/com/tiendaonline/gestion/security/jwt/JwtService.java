@@ -16,9 +16,10 @@ import io.jsonwebtoken.security.Keys;
 // Servicio para manejar la generación y validación de tokens JWT (JSON Web Tokens)
 public class JwtService {
 
-	// Clave secreta utilizada para firmar y verificar los tokens JWT. En un entornode producción,
-	//esta clave debe seralmacenada de forma segura y no debe serhardcodeada.
-	private static final String SECRET_KEY = "ClaveSuperSecretaParaJWT"; 
+	// Clave secreta utilizada para firmar y verificar los tokens JWT. En un entorno de producción,
+	// esta clave debe ser almacenada de forma segura y no debe ser hardcodeada.
+	// La clave debe estar codificada en Base64 y tener al menos 256 bits para HS256
+	private static final String SECRET_KEY = "Y2xhdmVTdXBlclNlY3JldGFQYXJhSldUMTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkw"; 
 
 	// Método para obtener la clave de firma a partir de la clave secreta
 	public String generateToken(UserDetails userDetails) {
