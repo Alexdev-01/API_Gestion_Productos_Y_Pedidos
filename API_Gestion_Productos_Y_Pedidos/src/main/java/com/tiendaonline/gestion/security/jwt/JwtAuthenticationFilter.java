@@ -30,6 +30,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		this.userDetailsService = userDetailsService;
 	}
 
+	// Excluir las rutas de autenticación del filtro JWT
+	@Override
+	protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+		String path = request.getServletPath();
+		return path.startsWith("/auth/");
+	}
+
 	// Método que se ejecuta para cada solicitud HTTP. Intercepta la solicitud, extrae el token JWT del encabezado de autorización, valida el token y establece la autenticación en el contexto de seguridad si el token es válido.
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
